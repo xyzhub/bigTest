@@ -49,7 +49,7 @@ $(function() {
 
 
     // 注册功能
-    $('#form_reg').submit(function(e) {
+    $('#form_reg').on('submit', function(e) {
         // 阻止默认事件
         e.preventDefault(e);
         // 获取表单数据
@@ -62,18 +62,49 @@ $(function() {
         // 发送ajax请求
         $.ajax({
             type: "post",
-            url: "http://api-breakingnews-web.itheima.net/api/reguser",
+            url: "/api/reguser",
             data: data,
             success: function(res) {
                 console.log(res);
                 // 判断请求是否成功
                 if (res.status !== 0) {
-                    return alert('注册失败');
+                    // return alert('注册失败');
+                    return layui.layer.msg(res.message, { icon: 5 })
                 }
-                // 调用去登录的点击事件
-                $('#link_login').click();
+                layui.layer.msg('注册成功', { icon: 6 }, function() {
+                    // 弹窗关闭后执行的回调函数
+                    // 调用去登录的点击事件
+                    $('#link_login').click();
+                })
             }
         });
     });
+
+    // 登录功能
+    $('#form_login').on('submit', function(e) {
+        // 阻止默认事件
+        e.preventDefault();
+        // 获取输入的表单数据
+        var data = $(this).serialize();
+        // 发送ajax请求
+        $.ajax({
+            type: "post",
+            url: "/api/login",
+            data: data,
+            success: function(res) {
+                console.log(res);
+                // 判断是否登录成功
+                if (res.status !== 0) {
+                    return layui.layer.msg(res.message, { icon: 5 })
+                }
+                layui.layer.msg('登录成功', { icon: 6 }, function() {
+                    // 把token放到本地存储
+                    localStorage.setItem('token', res.token);
+                    // 跳转到首页
+                    location.href = '/index.html'
+                })
+            }
+        });
+    })
 
 })
