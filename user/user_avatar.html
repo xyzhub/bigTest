@@ -39,6 +39,7 @@
             <!-- 第二行的按钮区域 -->
             <div class="row2">
                 <!-- 文件选择控件 -->
+                <!-- accept控制图片选择类型 -->
                 <input type="file" id="file" accept="image/png,image/jpeg" />
 
                 <button type="button" class="layui-btn" id="btnChooseImage">上传</button>
@@ -46,10 +47,18 @@
             </div>
         </div>
     </div>
+    <!-- 导入layui.all.js文件 -->
     <script src="../assets/lib/layui/layui.all.js"></script>
-    <!-- 图片裁剪 -->
+    <!-- 先引入jquery.js文件后面的js文件使用jquery -->
+    <script src="../assets/lib/jquery.js"></script>
+    <!-- 图片裁剪 基于jquery的插件 -->
     <script src="../assets/lib/cropper/Cropper.js"></script>
     <script src="../assets/lib/cropper/jquery-cropper.js"></script>
+
+    <!-- 再导入baseAPI.js文件后面的js文件需要发送ajax请求 -->
+    <script src="../assets/js/baseAPI.js"></script>
+    <!-- 最后引入user.avatar.js文件写该页面的功能交互 -->
+    <script src="../assets/js/user/user.avatar.js"></script>
 
 </body>
 
